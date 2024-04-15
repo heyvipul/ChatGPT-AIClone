@@ -5,8 +5,8 @@ const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
 
 let loadInterval;
-
 //function for .... loading...
+
 
 function loader(element){
   element.textContent = '';
@@ -99,9 +99,11 @@ const handleSubmit = async (e) =>{
 
     console.log({parsedData});
     typeText(messageDiv,parsedData)
+    scrollToBottom()
   }else{
     const err = await response.text();
     messageDiv.innerHTML = "Something went wrong!"
+    window.scrollTo(0, document.body.scrollHeight);
     alert("You exceeded your current quota!")
   }
 }

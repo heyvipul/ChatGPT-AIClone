@@ -7,7 +7,7 @@ import OpenAI from 'openai';
 dotenv.config();
 
 const configuration = {
-    apiKey: "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"
+    apiKey: process.env.OPENAI_API_KEY
 };
 
 const openai = new OpenAI(configuration);
@@ -28,12 +28,12 @@ app.post("/", async (req, res) => {
         const prompt = req.body.prompt;
 
         const response = await openai.completions.create({
-            model: "text-davinci-003",
+            model: "gpt-3.5-turbo",
             prompt: `${prompt}`,
-            temperature: 0, // more risk model takes
-            max_tokens: 3000, //pretty long response
+            temperature: 0.5, // Adjusted temperature for better responses
+            max_tokens: 100, // Adhering to Free tier TPM limit
             top_p: 1,
-            frequency_penalty: 0.5, // not repeat similar sentence
+            frequency_penalty: 0.5,
             presence_penalty: 0
         });
         res.status(200).send({
